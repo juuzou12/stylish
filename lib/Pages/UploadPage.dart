@@ -1,134 +1,46 @@
-import 'package:flutter/material.dart';
-import 'dart:io';
 import 'dart:collection';
-import 'package:image_picker/image_picker.dart';
+import 'dart:io';
+import 'package:flutter/services.dart';
+import 'package:flutter_screenutil/screenutil.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:image_gallery/image_gallery.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:flutter/material.dart';
+import 'package:path_provider/path_provider.dart';
 
-
-class UploadPage extends StatefulWidget{
+class UploadPage extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
     return _UploadPageState();
   }
-
 }
 
 class _UploadPageState extends State<UploadPage> {
-  File _image;
   Map<dynamic, dynamic> allImageInfo = new HashMap();
   List allImage = new List();
   List allNameList = new List();
-  final picker = ImagePicker();
   int index;
-  @override
-  void dispose() {
-    super.dispose();
-    _image?.delete();
-  }
+  File _image;
+  final picker = ImagePicker();
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
+    /**this is the screenUtil lines that handle the screen ratios*/
 
+    //default value : width : 1080px , height:1920px , allowFontScaling:false
+    ScreenUtil.init(context);
+    //If the design is based on the size of the iPhone6 ​​(iPhone6 ​​750*1334)
+    ScreenUtil.init(context, width: 360, height: 750);
+    // TODO: implement build
     return Scaffold(
-      backgroundColor: Colors.black,
-      body:Column(
-        children: [
-          Expanded(
-            child: Container(
-              child:  Stack(
-                children: [
-                ],
-              ),
-            ),
-          )
 
-        ],
-      ),
     );
   }
 
-  _pickVideo() async {
-    PickedFile pickedFile = await picker.getVideo(source: ImageSource.gallery);
-    setState(() async{
-      if (pickedFile != null) {
-        _image = File(pickedFile.path);
-        /*String pin = await
-        Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (context) => FinalUpload(image: pickedFile.path,c: "video",)));*/
-      } else {
-        print('No image selected.');
-      }
-    });
-  }
-
-/*SizedBox(
-            height: 40,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: InkWell(
-                  child: Container(
-                    width: 35,
-                    height: 35,
-                    child: Center(
-                      child: Icon(
-                        Icons.keyboard_backspace,
-                        color: Colors.black,
-                      ),
-                    ),
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        color: Colors.white,
-                        boxShadow: [
-                          BoxShadow(
-                              blurRadius: 5.0,
-                              spreadRadius: 1.0,
-                              color: Colors.grey.shade400),
-                        ]),
-                  ),
-                  onTap: () {
-                    Navigator.pop(context);
-                  },
-                ),
-              ),
-              Text(
-                "Make a new post",
-                style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              SizedBox(
-                width: 35,
-                height: 35,
-              )
-            ],
-          ),
-          ClipRRect(
-            child: _image == null
-                ? Image.asset(
-              "assets/images/takeimage.jpg",
-              fit: BoxFit.cover,
-              height: 350,
-              width: MediaQuery.of(context).size.width,
-            )
-                : Image.file(
-              _image,
-              fit: BoxFit.cover,
-              height: 350,
-              width: MediaQuery.of(context).size.width,
-            ),
-          ),*/
 }
+

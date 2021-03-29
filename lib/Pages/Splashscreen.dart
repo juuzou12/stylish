@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lottie/lottie.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:provider/provider.dart';
 import 'package:stylish/DarkMode/ThemeChanger.dart';
 class Splashscreen extends StatefulWidget {
   @override
@@ -22,10 +21,8 @@ class _SplashscreenState extends State<Splashscreen> {
     ScreenUtil.init(context);
     //If the design is based on the size of the iPhone6 ​​(iPhone6 ​​750*1334)
     ScreenUtil.init(context, width: 360, height: 750);
-    final theme = Provider.of<ThemeChanger>(context);
 
     return MaterialApp(
-      theme: theme.getTheme(),
       home: Scaffold(
           body:Container(
             child: Column(
@@ -49,6 +46,7 @@ class _SplashscreenState extends State<Splashscreen> {
             ),
           )
       ),
+      darkTheme: ThemeData.dark(),
     );
   }
   @override

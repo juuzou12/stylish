@@ -48,7 +48,6 @@ class TiktokSliderState extends State<TiktokSlider> {
           return Scaffold(
             body: TikTokStyleFullPageScroller(
               contentSize: snapshot.data.documents.length,
-              swipeThreshold: 0.2,
               // ^ the fraction of the screen needed to scroll
               swipeVelocityThreshold: 1000,
               // ^ the velocity threshold for smaller scrolls

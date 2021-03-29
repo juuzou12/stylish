@@ -7,7 +7,6 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lottie/lottie.dart';
 import 'ProfileViewDetails.dart';
-import 'package:provider/provider.dart';
 import 'package:stylish/DarkMode/ThemeChanger.dart';
 class CartegoryExtension extends StatefulWidget {
   // ignore: non_constant_identifier_names
@@ -29,7 +28,6 @@ class _CartegoryExtensionState extends State<CartegoryExtension>{
   final db = Firestore.instance;
   @override
   Widget build(BuildContext context) {
-    final theme = Provider.of<ThemeChanger>(context);
 
     return MaterialApp(
       home: Scaffold(
@@ -312,7 +310,6 @@ class _CartegoryExtensionState extends State<CartegoryExtension>{
         ),
 
       ),
-      theme: theme.getTheme(),
     );
   }
 

@@ -4,9 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:stylish/Function/FirebaseFunction.dart';
 import 'package:stylish/Pages/ProfileViewDetails.dart';
 import 'package:lottie/lottie.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:provider/provider.dart';
-import '../DarkMode/ThemeChanger.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';import '../DarkMode/ThemeChanger.dart';
 class StoreExtension extends StatefulWidget {
   final String title,filter,businessName;
 
@@ -21,7 +19,6 @@ class StoreExtension extends StatefulWidget {
 class _RecentPageState extends State<StoreExtension> {
   @override
   Widget build(BuildContext context) {
-    final theme = Provider.of<ThemeChanger>(context);
     return Container(
       child: Column(
         children: [
@@ -135,7 +132,7 @@ class _RecentPageState extends State<StoreExtension> {
                                                 index]["description"],
                                                 maxLines: 2,
                                                 style: TextStyle(
-                                                  color: theme.getTheme()==ThemeData.light()?Colors.black:Colors.white,
+                                                  color:Colors.white,
                                                     fontSize:
                                                     10),
                                               ),

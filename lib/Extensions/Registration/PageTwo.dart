@@ -5,7 +5,6 @@ import 'package:lottie/lottie.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'dart:io';
 import 'package:stylish/Pages/CreateAccount.dart';
-import 'package:provider/provider.dart';
 import 'package:stylish/DarkMode/ThemeChanger.dart';
 
 class PageTwo extends StatefulWidget{
@@ -25,7 +24,6 @@ class _PageTwoState extends State<PageTwo> {
   bool visible=true;
   @override
   Widget build(BuildContext context) {
-    final theme = Provider.of<ThemeChanger>(context);
     return MaterialApp(
       home: Scaffold(
         appBar: PreferredSize(
@@ -183,7 +181,6 @@ class _PageTwoState extends State<PageTwo> {
           ),
         ),
       ),
-      theme: theme.getTheme(),
     );
   }
 }

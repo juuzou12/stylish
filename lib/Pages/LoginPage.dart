@@ -4,12 +4,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:provider/provider.dart';
 import 'package:stylish/DarkMode/ThemeChanger.dart';
 import 'package:stylish/Function/FirebaseUsers.dart';
 import 'package:lottie/lottie.dart';
 import 'package:stylish/Extensions/Registration/RegistionPage.dart';
 import 'package:stylish/Pages/Dashboard.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -31,10 +31,8 @@ class _LoginPageState extends State<LoginPage> {
     ScreenUtil.init(context);
     //If the design is based on the size of the iPhone6 ​​(iPhone6 ​​750*1334)
     ScreenUtil.init(context, width: 360, height: 750);
-    final theme = Provider.of<ThemeChanger>(context);
 
     return MaterialApp(
-      theme: theme.getTheme(),
       home: Scaffold(
         body: SingleChildScrollView(
           child: Column(
@@ -178,7 +176,8 @@ class _LoginPageState extends State<LoginPage> {
                     width: ScreenUtil().setWidth(100),
                   ),
                 ),
-                onTap: () {
+                onTap: () async{
+                  SharedPreferences prefs = await SharedPreferences.getInstance();
                   if(_formKey.currentState.saveAndValidate()){
                     setState(() {
                       _currentView = true;
@@ -190,6 +189,8 @@ class _LoginPageState extends State<LoginPage> {
                       setState(() {
                         _currentView = false;
                       });
+                      prefs.setString('user_email', _formKey.currentState.value['email']);
+                      prefs.setString('user_password', _formKey.currentState.value['password']);
                       Fluttertoast.showToast(
                           msg: "Welcome back",
                           toastLength: Toast.LENGTH_SHORT,
@@ -203,6 +204,7 @@ class _LoginPageState extends State<LoginPage> {
                           MaterialPageRoute(
                           builder:
                           (context) =>Dashboard()));*/
+
                       Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) =>
                           Dashboard()), (Route<dynamic> route) => false);
 
@@ -304,6 +306,7 @@ class _LoginPageState extends State<LoginPage> {
           ),
         ),
       ),
+      darkTheme: ThemeData.dark(),
     );
 
   }

@@ -6,15 +6,15 @@ import 'package:connectivity/connectivity.dart';
 import 'dart:async';
 import 'package:flutter/services.dart';
 import 'package:stylish/Extensions/FirebaseExtension.dart';
-import 'package:stylish/Extensions/StoreLayout.dart';
+import 'package:stylish/Pages/UploadPage.dart';
+import 'file:///X:/Flutter/stylish/lib/Extensions/Influencer/InfluencersView.dart';
 import 'BlogViewPage.dart';
 import 'CartegoryExtension.dart';
-import 'package:provider/provider.dart';
 import '../DarkMode/ThemeChanger.dart';
 class ViewOnePage extends StatefulWidget {
-  final String title;
+  final String title,nameState;
 
-  const ViewOnePage({Key key, this.title}) : super(key: key);
+  const ViewOnePage({Key key, this.title, this.nameState}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() {
@@ -23,8 +23,8 @@ class ViewOnePage extends StatefulWidget {
 }
 
 class _ViewOnePageViewOnePageState extends State<ViewOnePage> {
-  String nameState = "Stores";
-  String storeState = "Stores";
+  String nameState = "Men's wear";
+  String storeState = "Men's wear";
 
   String filter = 'name';
   final Connectivity _connectivity = Connectivity();
@@ -35,378 +35,119 @@ class _ViewOnePageViewOnePageState extends State<ViewOnePage> {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Provider.of<ThemeChanger>(context);
-    return MaterialApp(
-      home: Scaffold(
-        appBar: PreferredSize(
-            preferredSize: Size.fromHeight(106.0), // here the desired height
-            child: Column(
-              children: [
-                AppBar(
-                  elevation: 0.0,
-                  backgroundColor: Colors.transparent,
-                  leading: widget.title != 'Stores'
-                      ? Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: InkWell(
-                            child: Icon(
-                              Icons.keyboard_backspace,
-                            ),
-                            onTap: () {
-                              Navigator.pop(context);
-                            },
-                          ),
-                        )
-                      : SizedBox(),
-                  actions: <Widget>[
-                    widget.title == 'Stores'
-                        ? Container(
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Container(
-                                    child: InkWell(
-                                      child: Icon(
-                                        Icons.keyboard_backspace,
-                                        color: theme.getTheme()==ThemeData.light()?Colors.black:Colors.white,
-                                      ),
-                                      onTap: () {
-                                        Navigator.pop(context);
-                                      },
-                                    ),
-                                    width: ScreenUtil().setWidth(60),
-                                    height: ScreenUtil().setHeight(60),
-                                  ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Container(
-                                      child: Text(
-                                    widget.title,
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      color: theme.getTheme()==ThemeData.light()?Colors.black:Colors.white,
-                                    ),
-                                  )),
-                                ),
-                                Container(
-                                  child: Row(
-                                    children: [
-                                      Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: InkWell(
-                                          child: Icon(
-                                            Icons.shopping_cart,
-                                            color: theme.getTheme()==ThemeData.light()?Colors.black:Colors.white,
-                                          ),
-                                          onTap: () async {
-                                            await Navigator.push(
-                                                context,
-                                                MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        CartegoryExtension(
-                                                          title: "Cart",
-                                                        )));
-                                          },
-                                        ),
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: InkWell(
-                                          child: Icon(
-                                            Icons.filter_list,
-                                            color: theme.getTheme()==ThemeData.light()?Colors.black:Colors.white,
-                                          ),
-                                          onTap: () async {
-                                            _ShowBottomSheet();
-                                          },
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                )
-                              ],
-                            ),
-                            width: MediaQuery.of(context).size.width,
-                          )
-                        : Container(
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Container(
-                                      child: Text(
-                                    widget.title,
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  )),
-                                ),
-                              ],
-                            ),
-                            width: MediaQuery.of(context).size.width,
-                          ),
-                  ],
-                  // ...
-                ),
-                widget.title == "Stores"
-                    ? SingleChildScrollView(
-                  child: Row(
-                    children: [
-                      Container(
-                        height: 50,
-                        width: MediaQuery.of(context).size.width,
-                        child: StreamBuilder<QuerySnapshot>(
-                          // ignore: deprecated_member_use
-                            stream: Firestore.instance
-                                .collection("categories")
-                                .orderBy("no")
-                                .snapshots(),
-                            builder: (BuildContext context,
-                                AsyncSnapshot<QuerySnapshot> snapshot) {
-                              if (snapshot.hasError) {
-                                return Text("Something went wrong");
-                              }
-                              if (snapshot.connectionState ==
-                                  ConnectionState.waiting) {
-                                return ListView(
-                                  scrollDirection: Axis.horizontal,
-                                  physics: BouncingScrollPhysics(),
-                                  shrinkWrap: true,
-                                  children: [
-                                    Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: Container(
-                                        child: Center(
-                                          child: Padding(
-                                            padding:
-                                            const EdgeInsets.all(8.0),
-                                            child: Text(
-                                              "Stores",
-                                              style: TextStyle(
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: Container(
-                                        child: Center(
-                                          child: Padding(
-                                            padding:
-                                            const EdgeInsets.all(8.0),
-                                            child: Text(
-                                              "Men's wear",
-                                              style: TextStyle(
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: Container(
-                                        child: Center(
-                                          child: Padding(
-                                            padding:
-                                            const EdgeInsets.all(8.0),
-                                            child: Text(
-                                              "Women's wear",
-                                              style: TextStyle(
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: Container(
-                                        child: Center(
-                                          child: Padding(
-                                            padding:
-                                            const EdgeInsets.all(8.0),
-                                            child: Text(
-                                              "Kid's wear",
-                                              style: TextStyle(
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: Container(
-                                        child: Center(
-                                          child: Padding(
-                                            padding:
-                                            const EdgeInsets.all(8.0),
-                                            child: Text(
-                                              "Official wear",
-                                              style: TextStyle(
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: Container(
-                                        child: Center(
-                                          child: Padding(
-                                            padding:
-                                            const EdgeInsets.all(8.0),
-                                            child: Text(
-                                              "Street wear",
-                                              style: TextStyle(
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: Container(
-                                        child: Center(
-                                          child: Padding(
-                                            padding:
-                                            const EdgeInsets.all(8.0),
-                                            child: Text(
-                                              "Beauty & Products",
-                                              style: TextStyle(
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                );
-                              }
-                              return ListView(
-                                scrollDirection: Axis.horizontal,
-                                physics: BouncingScrollPhysics(),
-                                shrinkWrap: true,
-                                // ignore: deprecated_member_use
-                                children: snapshot.data.documents
-                                    .map((documents) {
-                                  return Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: InkWell(
-                                      child: nameState ==
-                                          documents.data()["name"]
-                                          ? Container(
-                                          child: Center(
-                                            child: Padding(
-                                              padding:
-                                              const EdgeInsets.all(
-                                                  8.0),
-                                              child: Text(
-                                                documents
-                                                    .data()["name"],
-                                                style: TextStyle(
-                                                    color: Colors.blue),
-                                              ),
-                                            ),
-                                          ),
-                                          decoration: BoxDecoration(
-                                            border: Border(
-                                              bottom: BorderSide(
-                                                //                    <--- top side
-                                                color: Colors.blue,
-                                              ),
-                                            ),
-                                          ))
-                                          : Container(
-                                        child: Center(
-                                          child: Padding(
-                                            padding:
-                                            const EdgeInsets.all(
-                                                8.0),
-                                            child: Text(
-                                              documents
-                                                  .data()["name"],
-                                              style: TextStyle(
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                      onTap: () {
-                                        setState(() {
-                                          nameState =
-                                          documents.data()["name"];
-                                        });
-                                      },
-                                    ),
-                                  );
-                                }).toList(),
-                              );
-                            }),
-                      ),
-                    ],
-                  ),
-                  scrollDirection: Axis.horizontal,
-                )
-                    : SizedBox(),
-              ],
-            )),
-        floatingActionButton: widget.title == "Influencers"
-            ? FloatingActionButton(
-                onPressed: () {},
-                child: Icon(Icons.add,),
-              )
-            : Row(
-                mainAxisAlignment: MainAxisAlignment.center,
+    return Scaffold(
+      appBar: PreferredSize(
+          preferredSize:  widget.title == "Stores"?Size.fromHeight(60.0):Size.fromHeight(60.0), // here the desired height
+          child: AppBar(
+            elevation: 0.0,
+            backgroundColor: Colors.transparent,
+            leading: widget.title == 'Stores'
+                ? Container(
+              child: Row(
                 children: [
-
+                  InkWell(
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Icon(Icons.keyboard_backspace),
+                    ),
+                    onTap: (){
+                      Navigator.pop(context);
+                    },
+                  )
                 ],
               ),
-        body: visibiltyIfConnected == true
-            ? SingleChildScrollView(
-                child: Column(
-                  children: [
-                    widget.title == "Stores"
-                        ? Column(
-                            children: [
-                              storeState == nameState
-                                  ? StoreLayout()
-                                  : nameState != null
-                                      ? FirebaseExtension(
-                                          title: widget.title,
-                                          filter: filter,
-                                          category: nameState,
-                                        )
-                                      : SizedBox()
-                            ],
-                          )
-                        : widget.title == "Bloggers"
-                            ? BlogViewPage(
-                                title: widget.title,
-                              )
-                            : Container()
-                  ],
+            )
+                :widget.title == 'Influencers'? Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: InkWell(
+                child: Icon(
+                  Icons.weekend,
                 ),
-              )
-            : Container(
-                child: Column(
+                onTap: () {
+
+                },
+              ),
+            ):SizedBox(),
+            actions: <Widget>[
+            Container(
+                child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Image.asset("assets/images/no_internet.jpg"),
+                    widget.title=='Stores'?Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Container(
+                          child: Text(
+                            widget.nameState,
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                            ),
+                          )),
+                    ):Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Container(
+                          child: Text(
+                            widget.title,
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                            ),
+                          )),
+                    ),
                   ],
                 ),
+                width: MediaQuery.of(context).size.width,
               ),
+
+            ],
+            // ...
+          )),
+      floatingActionButton: widget.title == "Influencers"
+          ? FloatingActionButton(
+        onPressed: () {
+          _showPicker(context);
+        },
+        child: Icon(Icons.add,),
+      )
+          : Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+
+        ],
       ),
-      theme: theme.getTheme(),
+      body: visibiltyIfConnected == true
+          ? SingleChildScrollView(
+        physics: BouncingScrollPhysics(),
+        child: Column(
+          children: [
+            widget.title == "Stores"
+                ? Column(
+              children: [
+              FirebaseExtension(
+                  title: widget.title,
+                  filter: filter,
+                  category: widget.nameState,
+                counter: 0,
+                hideAdd: widget.title,
+                )
+
+              ],
+            )
+                : widget.title == "Bloggers"
+                ? BlogViewPage(
+              title: widget.title,
+            )
+                : widget.title == "Influencers"
+                ? InfluencersView(): Container()
+          ],
+        ),
+      )
+          : Container(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Image.asset("assets/images/no_internet.jpg"),
+          ],
+        ),
+      ),
     );
   }
 
@@ -1263,6 +1004,55 @@ class _ViewOnePageViewOnePageState extends State<ViewOnePage> {
                   ],
                 ),
               ));
+  }
+  void _showPicker(context) {
+    showModalBottomSheet(
+        context: context,
+        builder: (BuildContext bc) {
+          return SafeArea(
+            child: Container(
+              child: new Wrap(
+                children: <Widget>[
+                  new ListTile(
+                      leading: new Icon(Icons.web),
+                      title: new Text('Blog post'),
+                      onTap: () {
+
+                        Navigator.of(context).pop();
+                      }),
+                  new ListTile(
+                    leading: new Icon(Icons.tv),
+                    title: new Text('Video post'),
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                          builder:
+                          (context) =>UploadPage()));
+
+                    },
+                  ),
+                  new ListTile(
+                    leading: new Icon(Icons.image),
+                    title: new Text('Feed post'),
+                    onTap: () {
+
+                      Navigator.of(context).pop();
+                    },
+                  ),
+                  new ListTile(
+                    leading: new Icon(Icons.weekend),
+                    title: new Text('Stores post'),
+                    onTap: () {
+
+                      Navigator.of(context).pop();
+                    },
+                  ),
+                ],
+              ),
+            ),
+          );
+        });
   }
 
   void _showErrorDialog(String title, String message) {

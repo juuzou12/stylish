@@ -9,7 +9,6 @@ import 'package:lottie/lottie.dart';
 import 'dart:io';
 import 'package:image_picker/image_picker.dart';
 import 'package:stylish/Pages/Dashboard.dart';
-import 'package:provider/provider.dart';
 import 'package:stylish/DarkMode/ThemeChanger.dart';
 class CreateAccount extends StatefulWidget{
 
@@ -36,10 +35,8 @@ class _CreateAccountState extends State<CreateAccount> {
     ScreenUtil.init(context);
     //If the design is based on the size of the iPhone6 ​​(iPhone6 ​​750*1334)
     ScreenUtil.init(context, width: 360, height: 750);
-    final theme = Provider.of<ThemeChanger>(context);
 
     return MaterialApp(
-      theme: theme.getTheme(),
       home: Scaffold(
         appBar: PreferredSize(
             preferredSize: Size.fromHeight(50.0), // here the desired height

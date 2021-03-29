@@ -8,7 +8,6 @@ import 'package:stylish/Function/FirebaseFunction.dart';
 import 'package:stylish/Widget/ImageViewWidget.dart';
 import 'package:stylish/Extensions/StoreExtension.dart';
 import 'package:flutter_screenutil/screenutil.dart';
-import 'package:provider/provider.dart';
 import '../DarkMode/ThemeChanger.dart';
 class StoreProfile extends StatefulWidget{
   final String state,name,about,storename,height,location,phonenumber,image,price,title,category,uuid,age;
@@ -26,7 +25,6 @@ class _StoreProfileState extends State<StoreProfile> {
   String nameState = "Men's wear";
   @override
   Widget build(BuildContext context) {
-    final theme = Provider.of<ThemeChanger>(context);
     return MaterialApp(
       home: Scaffold(
         body: SingleChildScrollView(
@@ -63,7 +61,7 @@ class _StoreProfileState extends State<StoreProfile> {
                                         child: Center(
                                           child: Icon(
                                             Icons.keyboard_backspace,
-                                            color: theme.getTheme()==ThemeData.light()?Colors.black:Colors.white,
+                                            color:Colors.white,
                                           ),
                                         ),
                                         decoration: BoxDecoration(
@@ -80,7 +78,7 @@ class _StoreProfileState extends State<StoreProfile> {
                                   style: TextStyle(
                                     fontSize: 20,
                                     fontWeight: FontWeight.bold,
-                                    color: theme.getTheme()==ThemeData.light()?Colors.black:Colors.white,
+                                    color:Colors.white,
                                   ),
                                 ),
                                 InkWell(
@@ -93,7 +91,7 @@ class _StoreProfileState extends State<StoreProfile> {
                                           child: Center(
                                             child: Icon(
                                               Icons.favorite_border
-                                              ,color: theme.getTheme()==ThemeData.light()?Colors.black:Colors.white,
+                                              ,color: Colors.white,
                                             ),
                                           ),
 
@@ -294,24 +292,19 @@ class _StoreProfileState extends State<StoreProfile> {
                     ),
                   ),
                   height: MediaQuery.of(context).size.height,
-                  decoration: theme.getTheme()==ThemeData.dark()?BoxDecoration(
+                  decoration: BoxDecoration(
                       gradient: LinearGradient(colors: [
                         Colors.black12,
                         Colors.black87,
                         Colors.black87,
-                      ], begin: Alignment.topCenter, end: Alignment.bottomCenter)):BoxDecoration(
-                      gradient: LinearGradient(colors: [
-                        Colors.black12,
-                        Colors.white60,
-                        Colors.white60,
-                      ], begin: Alignment.topCenter, end: Alignment.bottomCenter)),
+                      ], begin: Alignment.topCenter, end: Alignment.bottomCenter))
                 )
               ],
             )
         ),
 
       ),
-      theme: theme.getTheme(),
+      darkTheme: ThemeData.dark(),
     );
   }
 }

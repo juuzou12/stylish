@@ -39,13 +39,34 @@ dependencies:
   google_fonts: ^1.1.1
   fluttertoast: ^7.1.6
   tiktoklikescroller: ^0.1.1
-  flutter_screenutil: ^2.3.0
+  image_gallery: ^1.2.0
+  photo_manager: ^0.5.8
   connectivity: ^2.0.2
   lottie: ^0.7.0+1
   shared_preferences: ^0.5.10
+  photo_view: ^0.10.2
   location: ^3.0.0
+  path: ^1.6.2
+  path_provider: ^1.1.0
   google_maps_flutter: ^1.2.0
-  provider: ^2.0.1
+  flutter_rating_bar: ^4.0.0
+  firestore_search: ^0.1.2
+  cached_network_image: ^2.5.1
+
+  #alan_voice: 2.0.14
+  flutter_screenutil: ^2.3.0
+
+
+
+dependency_overrides:
+  date_range_picker:
+    git:
+      url: 'git://github.com/justkawal/date_range_picker.git'
+      ref: 'master'
+  country_pickers:
+    git:
+      url: 'git://github.com/justkawal/country_pickers.git'
+      ref: 'master'
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -78,6 +99,7 @@ flutter:
     - assets/images/lg.jpg
     - assets/images/modelloader.jpg
     - assets/images/yellowshoe.jpg
+    - assets/images/nikelogo.png
     - assets/images/takeimage.jpg
     - assets/images/designers_image.jpg
     - assets/images/store_image.jpg
@@ -107,6 +129,13 @@ flutter:
     - assets/JsonImage/photos.json
     - assets/JsonImage/background_shape.json
     - assets/JsonImage/loading_art.json
+    - assets/JsonImage/voice_recognition.json
+    - assets/JsonImage/fingerprint.json
+    - assets/JsonImage/oops_try_again.json
+    - assets/JsonImage/gallery.json
+    - assets/JsonImage/sun_day.json
+    - assets/JsonImage/night_moon.json
+    - assets/JsonImage/musicsoundequalizer.json
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

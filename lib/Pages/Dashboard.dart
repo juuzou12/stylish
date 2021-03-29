@@ -10,7 +10,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:stylish/Widget/Landin_widget.dart';
 import 'package:stylish/Pages/UserProfile.dart';
 import 'package:lottie/lottie.dart';
-import 'package:provider/provider.dart';
 import 'package:stylish/DarkMode/ThemeChanger.dart';
 class Dashboard extends StatefulWidget{
   @override
@@ -42,10 +41,8 @@ class _DashboardState extends State<Dashboard> {
     ScreenUtil.init(context);
     //If the design is based on the size of the iPhone6 ​​(iPhone6 ​​750*1334)
     ScreenUtil.init(context, width: 360, height: 750);
-    final theme = Provider.of<ThemeChanger>(context);
-    return MaterialApp(
-      home: Scaffold(
-        body:visibiltyIfConnected==true?UserProfile()
+    return Scaffold(
+      body:visibiltyIfConnected==true?UserProfile()
           :Container(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -54,8 +51,6 @@ class _DashboardState extends State<Dashboard> {
           ],
         ),
       ),
-      ),
-      theme: theme.getTheme(),
     );
   }
 

@@ -2,35 +2,36 @@ import 'package:intl/intl.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-class FirebaseFunction{
-  Future<FirebaseFunction>BookmarkPost(String post_url,
-      String username,String comment,function){
-
+class FirebaseFunction {
+  Future<FirebaseFunction> BookmarkPost(
+      String post_url, String username, String comment, function) {
     final firestoreInstance = Firestore.instance;
     var firebaseUser = FirebaseAuth.instance.currentUser;
 
-    firestoreInstance.collection("Bookmarked_Post")
-        .doc()
-        .set({
+    firestoreInstance.collection("Bookmarked_Post").doc().set({
       "post_url": post_url,
       "username": username,
       "comment": comment,
       "Viewer_user_uuid": "firebaseUser.uid",
       "time_saved": time(),
-    }).then((value){
+    }).then((value) {
       print("Success !");
       function();
     });
   }
 
-  Future<FirebaseFunction>addToCart(String post_url,
-      String item_name,String description,String price,function,String store_name,String location,String category){
-
+  Future<FirebaseFunction> addToCart(
+      String post_url,
+      String item_name,
+      String description,
+      String price,
+      function,
+      String store_name,
+      String location,
+      String category) {
     final firestoreInstance = Firestore.instance;
     var firebaseUser = FirebaseAuth.instance.currentUser;
-    firestoreInstance.collection("Cart")
-        .doc()
-        .set({
+    firestoreInstance.collection("Cart").doc().set({
       "post_url": post_url,
       "item_name": item_name,
       "description": description,
@@ -40,34 +41,38 @@ class FirebaseFunction{
       "category": category,
       "time_saved": time(),
       "user_id": "firebaseUser.uid",
-
-    }).then((value){
+    }).then((value) {
       print("Success !");
       function();
     });
-
   }
 
-  Future<FirebaseFunction>CommentPost(String comment,)async{
+  Future<FirebaseFunction> CommentPost(
+    String comment,
+  ) async {
     final firestoreInstance = Firestore.instance;
     var firebaseUser = FirebaseAuth.instance.currentUser;
     DocumentReference doc_ref;
     DocumentSnapshot docSnap = await doc_ref.get();
 
-
-    firestoreInstance
-        .collection("Likes")
-        .doc()
-        .set({
+    firestoreInstance.collection("Likes").doc().set({
       "comment": comment,
       "time_posted": time(),
       "user_id": "firebaseUser.uid",
-
     });
   }
 
+  Future<bool> addChatRoom(chatRoom, chatRoomId) {
+    Firestore.instance
+        .collection("user_chats")
+        .document(chatRoomId)
+        .setData(chatRoom)
+        .catchError((e) {
+      print(e);
+    });
+  }
 
-  String time(){
+  String time() {
     final DateTime now = DateTime.now();
     final DateFormat formatter = DateFormat('yyyy-MM-dd-hh-mm');
     final String formatted = formatter.format(now);
